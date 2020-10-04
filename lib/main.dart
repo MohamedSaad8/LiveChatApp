@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:livechat/screens/chatScreen.dart';
 import 'package:livechat/screens/login_screen.dart';
 
 void main() => runApp(LiveChat());
@@ -11,6 +12,7 @@ class LiveChat extends StatelessWidget {
      initialRoute: LoginScreen.id,
      routes: {
        LoginScreen.id : (context) => LoginScreen(),
+       ChatScreen.id : (context) =>ChatScreen(),
      }
    );
   }

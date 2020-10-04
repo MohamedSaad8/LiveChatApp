@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:livechat/API/auth.dart';
+import 'package:livechat/screens/chatScreen.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   static String id = "LoginScreen";
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
@@ -34,11 +36,12 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 50,),
             loginForm(),
             SizedBox(
               height: screenWidth / 5.4,
             ),
-            loginButton(screenWidth),
+            loginButton(screenWidth , context),
             SizedBox(
               height: 20,
             )
@@ -48,14 +51,18 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Padding loginButton(double screenWidth) {
+  Padding loginButton(double screenWidth , BuildContext context) {
     return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 70),
             child: InkWell(
-              onTap: () {
+              onTap: () async{
                 _globalKey.currentState.validate();
                 _globalKey.currentState.save();
-                auth.userLogin(email, password);
+               bool response = await auth.userLogin(email, password);
+                if(response)
+                  {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -154,6 +161,9 @@ class LoginScreen extends StatelessWidget {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(width: 2),
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -178,6 +188,9 @@ class LoginScreen extends StatelessWidget {
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 20, horizontal: 5),
                       focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2),
+                      ),
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(width: 2),
                       ),
                     ),

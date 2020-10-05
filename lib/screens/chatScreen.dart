@@ -63,64 +63,73 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: ListView.builder(
                             controller: scrollController,
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 8),
-                                child: Column(
-                                  children: <Widget>[
-                                    Card(
-                                      child: Column(
-                                        children: <Widget>[
-                                          Directionality(
-                                            child: ListTile(
-                                              leading: CircleAvatar(
-                                                child: Icon(
-                                                  Icons.person,
-                                                  color: Colors.white,
-                                                ),
-                                                backgroundColor: Colors.grey,
-                                              ),
-                                              title: Text(
-                                                snapshot.data[index].messageUser
-                                                    .userName,
-                                                style: TextStyle(
-                                                    color: Colors.purple,
-                                                    fontWeight: FontWeight.w900,
-                                                    fontSize: 17,
-                                                    fontFamily: "Cairo"),
-                                              ),
-                                              subtitle: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10),
-                                                child: Text(
-                                                  snapshot.data[index]
-                                                      .messageContent,
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      color: Colors.black,
-                                                      fontFamily: "Cairo"),
-                                                ),
-                                              ),
+                              return Directionality(
+                                textDirection: userName !=
+                                        snapshot
+                                            .data[index].messageUser.userName
+                                    ? TextDirection.rtl
+                                    : TextDirection.ltr,
+                                child: Padding(
+                                  padding: userName !=
+                                          snapshot
+                                              .data[index].messageUser.userName
+                                      ? EdgeInsets.only(
+                                          bottom: 4,
+                                          top: 4,
+                                          left: 100,
+                                          right: 8)
+                                      : EdgeInsets.only(
+                                          bottom: 4,
+                                          top: 4,
+                                          right: 100,
+                                          left: 8),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Card(
+                                        child: ListTile(
+                                          leading: CircleAvatar(
+                                            child: Icon(
+                                              Icons.person,
+                                              color: Colors.white,
                                             ),
-                                            textDirection: userName !=
-                                                    snapshot.data[index]
-                                                        .messageUser.userName
-                                                ? TextDirection.rtl
-                                                : TextDirection.ltr,
+                                            backgroundColor: Colors.grey,
                                           ),
-                                        ],
+                                          title: Text(
+                                            snapshot.data[index].messageUser
+                                                .userName,
+                                            style: TextStyle(
+                                                color: Colors.purple,
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 17,
+                                                fontFamily: "Cairo"),
+                                          ),
+                                          subtitle: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
+                                            child: Text(
+                                              snapshot
+                                                  .data[index].messageContent,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.black,
+                                                  fontFamily: "Cairo"),
+                                            ),
+                                          ),
+                                        ),
+                                        shape: BeveledRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        color: userName !=
+                                                snapshot.data[index].messageUser
+                                                    .userName
+                                            ? Colors.white
+                                            : Colors.greenAccent,
+
+                                        // color: Colors.red,
                                       ),
-                                      shape: BeveledRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      color: userName !=
-                                              snapshot.data[index].messageUser
-                                                  .userName
-                                          ? Colors.white
-                                          : Colors.greenAccent,
-                                      // color: Colors.red,
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               );
                             },
